@@ -1,0 +1,9 @@
+{
+	"channel": "CHANNEL ID",
+	"message": "MESSAGE FORMAT (variables are {{link}} and {{channel}})",
+	"channels": {
+		"CHANNEL ID": [
+			"POSTED VIDEO IDS"
+		]
+	}
+}

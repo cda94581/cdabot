@@ -1,0 +1,14 @@
+[
+	{
+		"name": "COMMAND NAME",
+		"description": "COMMAND DESCRIPTION",
+		"aliases": [ "COMMAND ALIASES" ],
+		"message": "MESSAGE",
+		"embeds": [
+			{
+				"title": "EMBED TITLE",
+				"description": "EMBED DESCRIPTION"
+			}
+		]
+	}
+]

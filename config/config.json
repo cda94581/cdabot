@@ -1,0 +1,28 @@
+{
+	"embedcolors": {
+		"command": "#HEX",
+		"faq": "#HEX",
+		"log": "#HEX",
+		"trigger": "#HEX"
+	},
+	"levelinfo": {
+		"blacklist": {
+			"channels": [ "INSERT BLACKLISTED CHANNELS HERE" ],
+			"users": [ "INSERT BLACKLISTED USERS HERE" ]
+		},
+		"levels": [ "INSERT LEVELS TO GET ROLES HERE" ],
+		"roles": [ "INSERT ROLES CORRESPONDING HERE" ],
+		"max": 20
+	},
+	"logchannel": "LOG EVENTS HERE",
+	"modmessagingchannel": "YOUR MODMESSAGING CHANNEL ID HERE",
+	"muterole": "ROLE ID FOR MUTED",
+	"prefix": "YOUR PREFIX HERE",
+	"presence": {
+		"name": "PRESENCE NAME HERE",
+		"status": "PRESENCE STATUS HERE",
+		"type": "PRESENCE TYPE HERE"
+	},
+	"token": "YOUR TOKEN HERE",
+	"welcomechannel": "YOUR WELCOME CHANNEL ID HERE"
+}

@@ -1,0 +1,11 @@
+[
+	{
+		"name": "FAQ-NAME",
+		"embeds": [
+			{
+				"title": "EMBED TITLE",
+				"description": "EMBED DESCRIPTION"
+			}
+		]
+	}
+]

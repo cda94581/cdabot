@@ -1,0 +1,13 @@
+[
+	{
+		"names": [ "NAMES FOR TRIGGER" ],
+		"channels": [ "CHANNEL IDS TO TRIGGER (OPTIONAL, REMOVE IF UNNEEDED)" ],
+		"type": "exact | contain",
+		"embeds": [
+			{
+				"title": "EMBED TITLE",
+				"description": "EMBED DESCRIPTION"
+			}
+		]
+	}
+]
