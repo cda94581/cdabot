@@ -1,4 +1,12 @@
-const { embedcolors } = require('../config/config.json');
+import chalk from 'chalk';
+import fs from 'fs';
+import path from 'path';
+import { URL } from 'url';
+const __dirname = decodeURI(new URL('.', import.meta.url).pathname);
+import { client } from '../index.js';
+import { log } from '../_functions.js';
+import config from '../config/config.json' assert { type: 'json' };
+const { embedcolors } = config;
 
 module.exports = message => {
 	if (message.partial) return;
@@ -12,7 +20,7 @@ module.exports = message => {
 		description: desc,
 		timestamp: Date.now()
 	}, attachments);
-	console.log(`\x1B[1m${Date().toString()} \x1B[3mMessage by \x1B[4m${message.author.tag} \x1B[3mDeleted in \x1B[4m#${message.channel.name}\x1B[0m:\n${desc}\n\x1B[3mAttachments\x1B[0m:\n${message.attachments.map(m => m.name).join('\n')}`);
+	console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Message by')} ${chalk.underline(message.author.tag)} ${chalk.italic('Deleted in')} ${chalk.underline(`#${message.channel.name}`)}:\n${desc}\n${chalk.italic('Attachments')}:\n${message.attachments.map(m => m.name).join('\n')}`);
 
 	// To Do: Before/After Messages
 }

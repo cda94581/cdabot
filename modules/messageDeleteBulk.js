@@ -1,4 +1,12 @@
-const { embedcolors } = require('../config/config.json');
+import chalk from 'chalk';
+import fs from 'fs';
+import path from 'path';
+import { URL } from 'url';
+const __dirname = decodeURI(new URL('.', import.meta.url).pathname);
+import { client } from '../index.js';
+import { log } from '../_functions.js';
+import config from '../config/config.json' assert { type: 'json' };
+const { embedcolors } = config;
 
 module.exports = messages => {
 	const data = messages.map(m => m);
@@ -19,6 +27,6 @@ module.exports = messages => {
 			description: desc[i],
 			timestamp: Date.now()
 		});
-		console.log(`\x1B[1m${Date().toString()} \x1B[3mBulk Messages Deleted in \x1B[4m#${data[0].channel.name}\x1B[0m:${desc[i]}`);
+		console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Bulk Messages Deleted in')} ${chalk.underline(`#${data[0].channel.name}`)}:${desc[i]}`);
 	}
 }

@@ -1,13 +1,16 @@
-const { embedcolors } = require('../config/config.json');
+import chalk from 'chalk';
+import { client } from '../index.js';
+import { log } from '../_functions.js';
+import config from '../config/config.json' assert { type: 'json' };
+const { embedcolors } = config;
 
-module.exports = ban => {
+client.on('guildBanAdd', ban => {
 	const desc = `${ban.user} - ${ban.user.tag}\n**ID**: ${ban.user.id}`;
-
-	require('./index').log({
+	log({
 		color: embedcolors.log,
 		title: 'Member Banned',
 		description: desc,
 		timestamp: Date.now()
 	});
-	console.log(`\x1B[1m${Date().toString()} \x1B[3mMember Banned\x1B[0m: ${desc}`);
-}
+	console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Member Banned')}: ${desc}`);
+});

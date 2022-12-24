@@ -17,7 +17,6 @@
 	"logchannel": "LOG EVENTS HERE",
 	"modmessagingchannel": "YOUR MODMESSAGING CHANNEL ID HERE",
 	"muterole": "ROLE ID FOR MUTED",
-	"prefix": "YOUR PREFIX HERE",
 	"presence": {
 		"name": "PRESENCE NAME HERE",
 		"status": "PRESENCE STATUS HERE",

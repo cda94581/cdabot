@@ -1,4 +1,13 @@
-const { embedcolors } = require('../config/config.json');
+import chalk from 'chalk';
+import fs from 'fs';
+import path from 'path';
+import { URL } from 'url';
+const __dirname = decodeURI(new URL('.', import.meta.url).pathname);
+import { client } from '../index.js';
+import { log } from '../_functions.js';
+import config from '../config/config.json' assert { type: 'json' };
+const { embedcolors } = config;
+
 const bannedwords = require('../config/bannedwords.json');
 
 module.exports = async (oldMessage, newMessage) => {
@@ -30,6 +39,6 @@ module.exports = async (oldMessage, newMessage) => {
 			description: desc[i],
 			timestamp: Date.now()
 		});
-		console.log(`\x1B[1m${Date().toString()} \x1B[3mMessage Updated in \x1B[4m#${oldMessage.channel.name}\x1B[0m:\n${desc[i]}`);
+		console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Message Updated in')} ${chalk.underline(`#${oldMessage.channel.name}`)}:\n${desc[i]}`);
 	}
 }

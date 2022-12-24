@@ -1,3 +1,13 @@
+import chalk from 'chalk';
+import fs from 'fs';
+import path from 'path';
+import { URL } from 'url';
+const __dirname = decodeURI(new URL('.', import.meta.url).pathname);
+import { client } from '../index.js';
+import { log } from '../_functions.js';
+import config from '../config/config.json' assert { type: 'json' };
+const { embedcolors } = config;
+
 const reactionroles = require('../config/reactionroles.json');
 
 module.exports = async (messageReaction, user) => {

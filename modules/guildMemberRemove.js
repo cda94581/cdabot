@@ -1,4 +1,12 @@
-const { embedcolors } = require('../config/config.json');
+import chalk from 'chalk';
+import fs from 'fs';
+import path from 'path';
+import { URL } from 'url';
+const __dirname = decodeURI(new URL('.', import.meta.url).pathname);
+import { client } from '../index.js';
+import { log } from '../_functions.js';
+import config from '../config/config.json' assert { type: 'json' };
+const { embedcolors } = config;
 
 module.exports = async member => {
 	if (member.partial) {
@@ -19,5 +27,5 @@ module.exports = async member => {
 		description: desc,
 		timestamp: Date.now()
 	});
-	console.log(`\x1B[1m${Date().toString()} \x1B[3mMember Left\x1B[0m: ${desc}`);
+	console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Member Left')}: ${desc}`);
 }

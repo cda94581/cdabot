@@ -1,4 +1,12 @@
-const { embedcolors } = require('../config/config.json');
+import chalk from 'chalk';
+import fs from 'fs';
+import path from 'path';
+import { URL } from 'url';
+const __dirname = decodeURI(new URL('.', import.meta.url).pathname);
+import { client } from '../index.js';
+import { log } from '../_functions.js';
+import config from '../config/config.json' assert { type: 'json' };
+const { embedcolors } = config;
 
 module.exports = async (oldMember, newMember) => {
 	if (oldMember.partial) {
@@ -28,5 +36,5 @@ module.exports = async (oldMember, newMember) => {
 		thumbnail: { url: newMember.displayAvatarURL({ format: 'png', dynamic: true }) },
 		timestamp: Date.now()
 	});
-	console.log(`\x1B[1m${Date().toString()} \x1B[3mMember Updated: \x1B[4m${oldMember.user.tag}\x1B[0m:\n${desc}`);
+	console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Member Updated: \x1B[4m${oldMember.user.tag}')}:\n${desc}`);
 }
