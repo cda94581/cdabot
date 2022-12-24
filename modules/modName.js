@@ -14,11 +14,6 @@ const { welcomechannel, embedcolors } = require('../config/config.json');
 const bannedwords = require('../config/bannedwords.json');
 
 module.exports = async member => {
-	if (member.partial) {
-		try { await member.fetch(); }
-		catch (error) { return console.error(error); }
-	}
-
 	if (member.id != member.guild.ownerID) if (bannedwords.some(phrase => member.displayName.toLowerCase().includes(phrase))) member.setNickname( 'Name', 'Inappropriate Name' ); // Improve this
 
 	const desc = `${member.user} - ${member.user.tag}\n**ID**: ${member.id}\n**Account Created**: ${member.user.createdAt}`;
