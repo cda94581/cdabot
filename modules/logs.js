@@ -61,10 +61,10 @@ client.on('guildMemberRemove', async member => {
 	if (member.partial) {
 		try { await member.fetch(); }
 		catch (error) { log({
-				title: 'Member Left',
-				description: 'Unable to fetch data',
-				timestamp: Date.now()
-			}); return console.error(error); }
+			title: 'Member Left',
+			description: 'Unable to fetch data',
+			timestamp: Date.now()
+		}); return console.error(error); }
 	}
 
 	const desc = `${member.user} - ${member.user.tag}\n**ID**: ${member.user.id}`;
@@ -75,10 +75,9 @@ client.on('guildMemberRemove', async member => {
 		timestamp: Date.now()
 	});
 	console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Member Left')}: ${desc}`);
-})
+});
 
-// Message Delete
-module.exports = message => {
+client.on('messageDelete', message => {
 	if (message.partial) return;
 
 	const desc = message.content;
@@ -92,10 +91,9 @@ module.exports = message => {
 	console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Message by')} ${chalk.underline(message.author.tag)} ${chalk.italic('Deleted in')} ${chalk.underline(`#${message.channel.name}`)}:\n${desc}\n${chalk.italic('Attachments')}:\n${message.attachments.map(m => m.name).join('\n')}`);
 
 	// To Do: Before/After Messages
-}
+});
 
-// Message Delete Bulk
-module.exports = messages => {
+client.on('messageDeleteBulk', messages => {
 	const data = messages.map(m => m);
 	const authors = messages.map(m => m.author).reverse();
 	const content = messages.map(m => m.content).reverse();
@@ -115,20 +113,12 @@ module.exports = messages => {
 		});
 		console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Bulk Messages Deleted in')} ${chalk.underline(`#${data[0].channel.name}`)}:${desc[i]}`);
 	}
-}
+});
 
 client.on('messageUpdate', async (oldMessage, newMessage) => {
 	if (oldMessage.partial) {
 		try { await oldMessage.fetch(); }
 		catch (error) { return console.error('Something went wrong: ', error); }
-	}
-
-	if (newMessage.channel.type != 'DM' && newMessage.author.id != newMessage.guild.ownerId) {
-		if (bannedwords.some(phrase => newMessage.content.toLowerCase().includes(phrase))) {
-			newMessage.delete();
-			newMessage.channel.send({ content: `${newMessage.author}, you aren't allowed to say this phrase.` })
-				.then(sentMsg => setTimeout(() => sentMsg.delete(), 5000));
-		}
 	}
 
 	if (oldMessage.content == newMessage.content) return;
@@ -147,12 +137,11 @@ client.on('messageUpdate', async (oldMessage, newMessage) => {
 		});
 		console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Message Updated in')} ${chalk.underline(`#${oldMessage.channel.name}`)}:\n${desc[i]}`);
 	}
-})
+});
 
 client.once('ready', () => console.log(`${chalk.bold(Date().toString())} Ready!`));
 
-// User Update
-module.exports = async (oldUser, newUser) => {
+client.on('userUpdate', async (oldUser, newUser) => {
 	if (oldUser.partial) {
 		try { await oldUser.fetch(); }
 		catch { return console.error(error); }
@@ -171,4 +160,4 @@ module.exports = async (oldUser, newUser) => {
 		timestamp: Date.now()
 	});
 	console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Member Updated:')} ${chalk.underline(oldUser.tag)}:\n${desc}\n`);
-}
+});
