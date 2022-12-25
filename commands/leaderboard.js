@@ -1,32 +1,40 @@
-const { embedcolors, levelinfo } = require('../config/config.json');
-const fs = require('fs');
-const path = require('path');
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import fs from 'fs';
+import path from 'path';
+import { URL } from 'url';
+const __dirname = decodeURI(new URL('.', import.meta.url).pathname);
+import config from '../config/config.json' assert { type: 'json' };
+const { embedcolors, levelinfo } = config;
 
-module.exports = {
+export const command = {
 	name: 'leaderboard',
-	description: 'Get the server ranking leaderboard.',
-	usage: '[Leaderboard Page]',
-	execute(message, args) {
+	description: 'Server rank leaderboard',
+	global: true,
+	builder: new SlashCommandBuilder()
+		.addIntegerOption((option) => option
+			.setName('page')
+			.setDescription('Optional page number of the leaderboard')
+		),
+	execute: async (interaction = ChatInputCommandInteraction.prototype) => {
 		const levelFiles = fs.readdirSync(path.resolve(__dirname, '../_data/leveling'), 'utf-8').filter(f => f.endsWith('.json'));
 		let levelData = [];
-		for (file of levelFiles) {
-			const f = require(`../_data/leveling/${file}`);
-			levelData.push(f);
-		}
+		levelFiles.forEach(async file => levelData.push((await import(`../_data/leveling/${file}`, { assert: { type: 'json' }})).default));
 		levelData = levelData.filter(a => a.level < levelinfo.max).sort((a, b) => b.level - a.level || b.xp - a.xp);
 
 		let data = ['**PLACE. USER - LEVEL/XP - MESSAGES**\n'];
-		for (i in levelData) {
+		levelData.forEach((member, i) => {
 			let dataIndex = Math.floor(i / 20);
 			if (!data[dataIndex]) data[dataIndex] = '**PLACE. USER - LEVEL/XP - MESSAGES**\n';
-			data[dataIndex] += `${i*1+1}. <@!${levelData[i].id}> - ${levelData[i].level}/${levelData[i].xp} - ${levelData[i].messages}\n`;
-		}
-		
-		return message.channel.send({ embeds: [{
+			data[dataIndex] += `${i*1+1}. <@!${member.id}> - ${member.level}/${member.xp} - ${member.messages}\n`;
+		});
+
+		const page = interaction.options.getInteger('page');
+
+		interaction.reply({ embeds: [{
 			color: embedcolors.command,
 			title: 'cdaBot Leaderboard',
-			description: args.length ? data[args[0] -1] : data[0],
-			footer: { text: `Leaderboard Page ${args.length ? args[0] : '1'}/${data.length}` }
+			description: data[page ? page - 1 : 0],
+			footer: { text: `Leaderboard Page ${page ? page : '1'}/${data.length}` }
 		}]});
 	}
 }

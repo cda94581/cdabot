@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import fs from 'fs-extra';
+import fs from 'fs';
 import path from 'path';
 import { URL } from 'url';
 const __dirname = decodeURI(new URL('.', import.meta.url).pathname);
@@ -9,7 +9,7 @@ const { embedcolors } = config;
 
 const { logchannel } = require('../config/config.json');
 
-const log = (message, files) => client.channels.cache.get(logchannel).send({ embeds: [ Object.assign({ color: embedcolors.log }, message) ], files: files })
+export const log = (message, files) => client.channels.cache.get(logchannel).send({ embeds: [ Object.assign({ color: embedcolors.log }, message) ], files: files })
 
 client.on('guildBanAdd', ban => {
 	const desc = `${ban.user} - ${ban.user.tag}\n**ID**: ${ban.user.id}`;
@@ -35,8 +35,7 @@ client.on('guildMemberAdd', async member => {
 	const desc = `${member.user} - ${member.user.tag}\n**ID**: ${member.id}\n**Account Created**: ${member.user.createdAt}`;
 
 	const filePath = path.resolve(__dirname, '../_data/member_history.json');
-	if (!fs.existsSync(filePath)) fs.outputFileSync(filePath, '[]', 'utf-8');
-	let memberhistory = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+	let memberhistory = fs.existsSync(filePath) ? (await import(filePath, { assert: { type: 'json' }})).default : [];
 	if (memberhistory.includes(member.id)) {
 		log({
 			title: 'Member Rejoined',

@@ -1,20 +1,27 @@
-const { prefix } = require('../config/config.json');
-const Discord = require('discord.js');
+import { ChatInputCommandInteraction, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
 
-module.exports = {
+export const command = {
 	name: 'eval',
-	description: 'Executes a JavaScript code, can be helpful for single-use things.',
-	perms: [ 'ADMINISTRATOR' ],
-	execute(message) {
-		const content = message.content.slice(prefix.length + 5,);
+	description: 'Evaluates a custom line of JavaScript',
+	global: true,
+	builder: new SlashCommandBuilder()
+		.addStringOption((option) => option
+			.setName('command')
+			.setDescription('The command to execute')
+			.setRequired(true)
+		)
+		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+	execute: async (interaction = ChatInputCommandInteraction.prototype) => {
+		const command = interaction.options.getString('command');
 		try {
-			eval(content);
-			message.channel.send({ content: `> **Successfully executed code**\n\`\`\`js\n${content}\n\`\`\`` })
-				.then(sentMsg => setTimeout(() => sentMsg.delete(), 5000));
+			eval(command);
+			await interaction.reply({
+				content: `> **Successfully executed code**\n\`\`\`js\n${command}\n\`\`\``
+			});
 		} catch (error) {
-			message.channel.send({ content: `> **There was an error executing code**\n\`\`\`js\n${content}\n\`\`\`\`\`\`${error}\`\`\``})
-				.then(sentMsg => setTimeout(() => sentMsg.delete(), 5000));
+			await interaction.reply({
+				content: `> **There was an error executing code**\n\`\`\`js\n${command}\n\`\`\`\`\`\`${error}\`\`\``
+			});
 		}
-		message.delete();
 	}
 }

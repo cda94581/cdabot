@@ -1,40 +1,28 @@
-import chalk from 'chalk';
-import fs from 'fs';
-import path from 'path';
-import { URL } from 'url';
-const __dirname = decodeURI(new URL('.', import.meta.url).pathname);
 import { client } from '../index.js';
-import { log } from '../_functions.js';
-import config from '../config/config.json' assert { type: 'json' };
-const { embedcolors } = config;
+import reactionroles from '../config/reactionroles.json' assert { type: 'json' };
 
-const reactionroles = require('../config/reactionroles.json');
-
-// add
-module.exports = async (messageReaction, user) => {
+client.on('messageReactionAdd', async (messageReaction, user) => {
 	if (messageReaction.partial) {
 		try { await messageReaction.fetch(); }
 		catch (error) { return console.error(error); }
 	}
-	for (rr of reactionroles) {
-		if ((messageReaction.message.channel.id == rr.channel) && (messageReaction.message.id == rr.message) && (( messageReaction.emoji.id || messageReaction.emoji.name ) == rr.emoji)) {
-			const role = messageReaction.message.member.guild.roles.cache.find(role => role.id == rr.role);
-			const member = messageReaction.message.member;
-			return member.roles.add(role);
-		}
-	}
-}
-// remove
-module.exports = async (messageReaction, user) => {
+	reactionroles.forEach(async rr => {
+		if (messageReaction.message.channelId == rr.channel
+			&& messageReaction.message.id == rr.message
+			&& (messageReaction.emoji.id || messageReaction.emoji.name) == rr.emoji) messageReaction.message.guild.members.resolve(user)
+				.roles.add(await messageReaction.message.guild.roles.fetch(role));
+	});
+});
+
+client.on('messageReactionRemove', async (messageReaction, user) => {
 	if (messageReaction.partial) {
 		try { await messageReaction.fetch(); }
 		catch (error) { return console.error(error); }
 	}
-	for (rr of reactionroles) {
-		if ((messageReaction.message.channel.id == rr.channel) && (messageReaction.message.id == rr.message) && (( messageReaction.emoji.id || messageReaction.emoji.name ) == rr.emoji)) {
-			const role = messageReaction.message.member.guild.roles.cache.find(role => role.id == rr.role);
-			const member = messageReaction.message.member;
-			return member.roles.remove(role);
-		}
-	}
-}
+	reactionroles.forEach(async rr => {
+		if (messageReaction.message.channelId == rr.channel
+			&& messageReaction.message.id == rr.message
+			&& (messageReaction.emoji.id || messageReaction.emoji.name) == rr.emoji) messageReaction.message.guild.members.resolve(user)
+				.roles.remove(await messageReaction.message.guild.roles.fetch(role));
+	});
+});

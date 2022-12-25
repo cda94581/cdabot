@@ -1,27 +1,31 @@
 {
 	"embedcolors": {
-		"command": "#HEX",
-		"faq": "#HEX",
-		"log": "#HEX",
-		"trigger": "#HEX"
+		"command": "DECIMAL NUMBER",
+		"faq": "DECIMAL NUMBER",
+		"giveaway": "DECIMAL NUMBER",
+		"log": "DECIMAL NUMBER",
+		"trigger": "DECIMAL NUMBER"
 	},
 	"levelinfo": {
 		"blacklist": {
-			"channels": [ "INSERT BLACKLISTED CHANNELS HERE" ],
-			"users": [ "INSERT BLACKLISTED USERS HERE" ]
+			"channels": { "CHANNEL ID": "NAME" },
+			"users": { "USER ID": "NAME" }
 		},
-		"levels": [ "INSERT LEVELS TO GET ROLES HERE" ],
-		"roles": [ "INSERT ROLES CORRESPONDING HERE" ],
+		"roles": { "LEVEL": [ "ROLE ID(S)" ] },
 		"max": 20
 	},
 	"logchannel": "LOG EVENTS HERE",
 	"modmessagingchannel": "YOUR MODMESSAGING CHANNEL ID HERE",
 	"muterole": "ROLE ID FOR MUTED",
 	"presence": {
-		"name": "PRESENCE NAME HERE",
-		"status": "PRESENCE STATUS HERE",
-		"type": "PRESENCE TYPE HERE"
+		"activities": [
+			{
+				"name": "PRESENCE NAME",
+				"type": "PRESENCE TYPE"
+			}
+		],
+		"status": "PRESENCE STATUS"
 	},
-	"token": "YOUR TOKEN HERE",
-	"welcomechannel": "YOUR WELCOME CHANNEL ID HERE"
+	"token": "BOT TOKEN",
+	"welcomechannel": "WELCOME CHANNEL ID"
 }

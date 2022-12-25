@@ -1,34 +1,23 @@
-const { prefix, embedcolors } = require('../config/config.json');
-const faqList = require('../config/faq.json');
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import config from '../config/config.json' assert { type: 'json' };
+const { embedcolors } = config;
+import faqList from '../config/faq.json' assert { type: 'json' };
 
-module.exports = {
+export const command = {
 	name: 'faq',
 	description: 'Common issues and things to know',
-	usage: '[list|faq name]',
-	execute(message, args) {
-		if (!args.length) return message.channel.send({ embeds: [{
-			color: embedcolors.faq,
-			title: 'FAQ',
-			description: 'These are some handy things to know! Use the `faq list` command to get a list of all queries. Use `faq [faq name]` (without brackets) to use the command'
-		}]});
-
-		const faqArgs = message.content.slice(prefix.length).trim().split(/ +/);
-		faqArgs.shift();
-		const faqName = faqArgs.shift().toLowerCase();
-
+	global: true,
+	builder: new SlashCommandBuilder()
+		.addStringOption((option) => option
+			.setName('name')
+			.setDescription('The FAQ string')
+			.setAutocomplete(true)
+			.setRequired(true)
+		),
+	execute: async (interaction = ChatInputCommandInteraction.prototype) => {
+		const faqName = interaction.options.getString('name');
 		const faq = faqList.find(f => f.name.toLowerCase() == faqName);
-		if (faq) {
-			const embeds = faq.embeds.map(embed => { return { color: embedcolors.faq, title: embed.title, description: embed.description } });
-			return message.channel.send({ embeds: embeds });
-		}
-
-		if (faqName == 'list') {
-			const data = faqList.map(faq => faq.name).join('`, `');
-			message.channel.send({ embeds: [{
-				color: embedcolors.faq,
-				title: 'cdaBot FAQ List',
-				description: `\`${data}\``
-			}]});
-		}
+		const embeds = faq.embeds.map(embed => { return { color: embedcolors.faq, title: embed.title, description: embed.description } });
+		return await interaction.reply({ embeds: embeds });
 	}
 }

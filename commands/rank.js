@@ -1,19 +1,30 @@
-const { embedcolors } = require('../config/config.json');
-const fs = require('fs');
-const path = require('path');
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import fs from 'fs';
+import path from 'path';
+import { URL } from 'url';
+const __dirname = decodeURI(new URL('.', import.meta.url).pathname);
+import config from '../config/config.json' assert { type: 'json' };
+const { embedcolors } = config;
 
-module.exports = {
+export const command = {
 	name: 'rank',
 	description: 'Checks your level on the cdaBot leveling system',
-	execute(message, args) {
-		const author = args[0] || message.author.id;
+	global: true,
+	builder: new SlashCommandBuilder()
+		.addUserOption((option) => option
+			.setName('user')
+			.setDescription('[OPTIONAL] User to get the rank of')
+		),
+	execute: async (interaction = ChatInputCommandInteraction.prototype) => {
+		const member = interaction.options.getMember('user') || interaction.member;
+		const author = member.id;
 		const filePath = path.resolve(__dirname, `../_data/leveling/${author}.json`);
-		if (!fs.existsSync(filePath)) return message.channel.send({ content: 'You aren\'t ranked yet, send some messages to gain XP.' });
-		const info = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+		if (!fs.existsSync(filePath)) return await interaction.reply({ content: 'You aren\'t ranked yet, send some messages to gain XP.' });
+		const info = (await import(filePath, { assert: { type: 'json' }})).default;
 		const toLevelUp = 5 * (info.level ** 2) + 50 * info.level + 100;
-		message.channel.send({ embeds: [{
+		await interaction.reply({ embeds: [{
 			color: embedcolors.command,
-			title: `cdaBot Leveling - ${message.guild.members.cache.find(m => m.id == author).displayName}`,
+			title: `cdaBot Leveling - ${member.displayName}`,
 			description: `**Level**: ${info.level}\n**XP**: ${info.xp}/${toLevelUp}\n**Messages**: ${info.messages}`
 		}]});
 	}
