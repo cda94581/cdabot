@@ -1,4 +1,6 @@
 {
+	"clientId": "CLIENT ID",
+	"guildId": "GUILD ID",
 	"embedcolors": {
 		"command": "DECIMAL NUMBER",
 		"faq": "DECIMAL NUMBER",

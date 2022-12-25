@@ -13,7 +13,7 @@ const getYoutube = async () => {
 	channels.forEach(channel => {
 		https.get(`https://www.youtube.com/feeds/videos.xml?channel_id=${channel}`, res => {
 			let data = [];
-			res.on('data', data.push);
+			res.on('data', chunk => data.push(chunk));
 			res.on('end', async () => {
 				data = await xml.parseStringPromise(Buffer.concat(data).toString());
 				const video = data.feed.entry[0]['yt:videoId'][0];

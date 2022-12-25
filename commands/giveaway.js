@@ -2,7 +2,7 @@ import { ChatInputCommandInteraction, SlashCommandBuilder, PermissionFlagsBits }
 import config from '../config/config.json' assert { type: 'json' };
 const { embedcolors } = config;
 
-module.exports = {
+export const command = {
 	name: 'giveaway',
 	description: 'Run a giveaway (limited)',
 	global: true,

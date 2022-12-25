@@ -6,7 +6,8 @@ import { URL } from 'url';
 const __dirname = decodeURI(new URL('.', import.meta.url).pathname);
 import config from '../config/config.json' assert { type: 'json' };
 const { embedcolors } = config;
-import { log } from '../modules/logs.js';
+
+const log = (message, files) => client.channels.cache.get(logchannel).send({ embeds: [ Object.assign({ color: embedcolors.log }, message) ], files: files });
 
 export const command = {
 	name: 'modcmd',
@@ -24,13 +25,13 @@ export const command = {
 			.addStringOption((option) => option
 				.setName('type')
 				.setDescription('[OPTIONAL] A specific type of action')
-				.setChoices([
+				.setChoices(
 					{ name: 'ban', value: 'ban' },
 					{ name: 'kick', value: 'kick' },
 					{ name: 'mute', value: 'mute' },
 					{ name: 'note', value: 'note' },
 					{ name: 'warn', value: 'warn' }
-				])
+				)
 			)
 		)
 		.addSubcommand((option) => option

@@ -1,6 +1,6 @@
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord.js';
-import config from '../config.json' assert { type: 'json' };
+import config from '../config/config.json' assert { type: 'json' };
 const { clientId, guildId, token } = config;
 
 const rest = new REST({ version: 10 }).setToken(token);

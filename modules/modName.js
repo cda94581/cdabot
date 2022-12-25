@@ -1,5 +1,4 @@
 import { client } from '../index.js';
-import { client } from '../index.js';
 import bannedwords from '../config/bannedwords.json' assert { type: 'json' };
 
 client.on('guildMemberAdd', async member => {

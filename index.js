@@ -1,7 +1,7 @@
 import fs from 'fs';
-import { Client, Partials } from 'discord.js';
+import { Client, Collection, Partials } from 'discord.js';
 import event from 'events';
-import config from './config.json' assert { type: 'json' };
+import config from './config/config.json' assert { type: 'json' };
 const { token } = config;
 const client = new Client({
 	partials: [ Partials.Channel, Partials.GuildMember, Partials.Message, Partials.Reaction, Partials.User ],

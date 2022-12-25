@@ -1,17 +1,10 @@
-import chalk from 'chalk';
 import fs from 'fs';
 import path from 'path';
 import { URL } from 'url';
 const __dirname = decodeURI(new URL('.', import.meta.url).pathname);
 import { client } from '../index.js';
-import { log } from '../_functions.js';
 import config from '../config/config.json' assert { type: 'json' };
-const { embedcolors } = config;
-
-const fs = require('fs-extra');
-const path = require('path');
-const { welcomechannel, embedcolors } = require('../config/config.json');
-const bannedwords = require('../config/bannedwords.json');
+const { welcomechannel } = config;
 
 client.on('guildMemberAdd', async member => {
 	const filePath = path.resolve(__dirname, '../_data/member_history.json');

@@ -2,12 +2,12 @@ import { SlashCommandBuilder, Routes } from 'discord.js';
 import { REST } from '@discordjs/rest';
 import fs from 'fs';
 import lodash from 'lodash';
-import config from '../config.json' assert { type: 'json' };
+import config from '../config/config.json' assert { type: 'json' };
 const { clientId, guildId, token } = config;
 let commandsServer = [];
 let commandsGlobal = [];
 
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync('../commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
 	const { command } = await import(`../commands/${file}`);
 	let builder = new SlashCommandBuilder()

@@ -5,11 +5,9 @@ import { URL } from 'url';
 const __dirname = decodeURI(new URL('.', import.meta.url).pathname);
 import { client } from '../index.js';
 import config from '../config/config.json' assert { type: 'json' };
-const { embedcolors } = config;
+const { embedcolors, logchannel } = config;
 
-const { logchannel } = require('../config/config.json');
-
-export const log = (message, files) => client.channels.cache.get(logchannel).send({ embeds: [ Object.assign({ color: embedcolors.log }, message) ], files: files })
+const log = (message, files) => client.channels.cache.get(logchannel).send({ embeds: [ Object.assign({ color: embedcolors.log }, message) ], files: files });
 
 client.on('guildBanAdd', ban => {
 	const desc = `${ban.user} - ${ban.user.tag}\n**ID**: ${ban.user.id}`;
