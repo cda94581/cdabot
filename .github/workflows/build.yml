@@ -1,0 +1,36 @@
+name: Build
+on: [push]
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.bump.outputs.VERSION }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Setup Node.JS V18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Setup Git Enviornment
+        run: |
+          git config --global user.name "cda94581"
+          git config --global user.email "76138236+cda94581@users.noreply.github.com"
+      - id: bump
+        name: Bump Version
+        run: |
+          npm run bump
+          npm i
+      - name: Package into a .zip file
+        run: npm run archive
+      - name: Clean Up
+        run: rm -rf node_modules
+      - name: Push and Tag Commits
+        run: |
+          git add -A
+          git commit -m "Bump version to $VERSION"
+          git tag -a "$VERSION" -m "Tag for version $VERSION"
+          git push
+          git push --tags
+        env:
+          VERSION: ${{ env.VERSION }}
