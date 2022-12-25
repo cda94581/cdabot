@@ -14,7 +14,7 @@ client.on('guildBanAdd', ban => {
 	log({
 		title: 'Member Banned',
 		description: desc,
-		timestamp: Date.now()
+		timestamp: new Date().toISOString()
 	});
 	console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Member Banned')}: ${desc}`);
 });
@@ -24,7 +24,7 @@ client.on('guildBanRemove', ban => {
 	log({
 		title: 'Member Banned',
 		description: desc,
-		timestamp: Date.now()
+		timestamp: new Date().toISOString()
 	});
 	console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Member Banned')}: ${desc}`);
 });
@@ -38,14 +38,14 @@ client.on('guildMemberAdd', async member => {
 		log({
 			title: 'Member Rejoined',
 			description: desc,
-			timestamp: Date.now()
+			timestamp: new Date().toISOString()
 		});
 		console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Member Rejoined')}: ${desc}`);
 	} else {
 		log({
 			title: 'Member Joined',
 			description: desc,
-			timestamp: Date.now()
+			timestamp: new Date().toISOString()
 		});
 		console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Member Joined')}: ${desc}`);
 
@@ -60,7 +60,7 @@ client.on('guildMemberRemove', async member => {
 		catch (error) { log({
 			title: 'Member Left',
 			description: 'Unable to fetch data',
-			timestamp: Date.now()
+			timestamp: new Date().toISOString()
 		}); return console.error(error); }
 	}
 
@@ -69,7 +69,7 @@ client.on('guildMemberRemove', async member => {
 	log({
 		title: 'Member Left',
 		description: desc,
-		timestamp: Date.now()
+		timestamp: new Date().toISOString()
 	});
 	console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Member Left')}: ${desc}`);
 });
@@ -83,7 +83,7 @@ client.on('messageDelete', message => {
 	log({
 		title: `Message by ${message.author.tag} Deleted in #${message.channel.name}`,
 		description: desc,
-		timestamp: Date.now()
+		timestamp: new Date().toISOString()
 	}, attachments);
 	console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Message by')} ${chalk.underline(message.author.tag)} ${chalk.italic('Deleted in')} ${chalk.underline(`#${message.channel.name}`)}:\n${desc}\n${chalk.italic('Attachments')}:\n${message.attachments.map(m => m.name).join('\n')}`);
 
@@ -96,7 +96,7 @@ client.on('messageDeleteBulk', messages => {
 	const content = messages.map(m => m.content).reverse();
 	let desc = [ '' ];
 	data.forEach((d, i) => desc[0] += `[${authors[i]}] ${content[i]}\n`);
-	for (i = 0; i < desc.length; i++) {
+	for (const i in desc) {
 		if (desc[i].length > 2000) {
 			const tempData = desc[i];
 			desc[i] = tempData.slice(0, 2000);
@@ -106,7 +106,7 @@ client.on('messageDeleteBulk', messages => {
 		log({
 			title: `Bulk Messages Deleted in #${data[0].channel.name}`,
 			description: desc[i],
-			timestamp: Date.now()
+			timestamp: new Date().toISOString()
 		});
 		console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Bulk Messages Deleted in')} ${chalk.underline(`#${data[0].channel.name}`)}:${desc[i]}`);
 	}
@@ -120,7 +120,7 @@ client.on('messageUpdate', async (oldMessage, newMessage) => {
 
 	if (oldMessage.content == newMessage.content) return;
 	let desc = [ `**Old**:\n${oldMessage.content}\n\n**New**:\n${newMessage.content}\n\n[Jump](${newMessage.url})` ];
-	for (i = 0; i < desc.length; i++) {
+	for (const i in desc) {
 		if (desc[i].length > 2000) {
 			const tempData = desc[i];
 			desc[i] = tempData.slice(0, 2000);
@@ -130,7 +130,7 @@ client.on('messageUpdate', async (oldMessage, newMessage) => {
 		log({
 			title: `Message Updated in #${oldMessage.channel.name}`,
 			description: desc[i],
-			timestamp: Date.now()
+			timestamp: new Date().toISOString()
 		});
 		console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Message Updated in')} ${chalk.underline(`#${oldMessage.channel.name}`)}:\n${desc[i]}`);
 	}
@@ -154,7 +154,7 @@ client.on('userUpdate', async (oldUser, newUser) => {
 		title: `User Updated: ${oldUser.tag}`,
 		description: desc,
 		thumbnail: { url: newUser.displayAvatarURL({ format: 'png', dynamic: true }) },
-		timestamp: Date.now()
+		timestamp: new Date().toISOString()
 	});
 	console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Member Updated:')} ${chalk.underline(oldUser.tag)}:\n${desc}\n`);
 });

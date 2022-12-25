@@ -1,5 +1,5 @@
 import { client } from '../index.js';
-import faqList from '../config/faq.json' assert { type: 'json' };
+import faqList from '../config/command.json' assert { type: 'json' };
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isAutocomplete() || interaction.commandName != 'other') return;

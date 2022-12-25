@@ -157,7 +157,7 @@ export const command = {
 			default: data[0] += `> **Notes**:${notes}\n> **Warnings**:${warns}\n> **Mutes**: WIP\n\n> **Kicks**:${kicks}\n> **Bans**:${bans}`; break;
 		}
 
-		for (i = 0; i < data.length; i++) {
+		for (const i in data) {
 			if (data[i].length > 2000) { // If past character limit
 				const tempData = data[i];
 				data[i] = tempData.slice(0, 2000);
@@ -187,7 +187,7 @@ export const command = {
 		const filePath = path.resolve(__dirname, `../../_data/modactions/bans/${member.id}.json`);
 		if (!fs.existsSync(filePath)) fs.outputFileSync(filePath, `[]`, 'utf-8');
 		let file = (await import(filePath, { assert: { type: 'json' }})).default;
-		file.push({ id: file.length + 1, timestamp: Date.now(), reason: reason });
+		file.push({ id: file.length + 1, timestamp: new Date().toISOString(), reason: reason });
 		fs.writeFileSync(filePath, JSON.stringify(file), 'utf-8');
 	},
 	kick: async (interaction = ChatInputCommandInteraction.prototype) => {
@@ -207,7 +207,7 @@ export const command = {
 		const filePath = path.resolve(__dirname, `../../_data/modactions/kicks/${member.id}.json`);
 		if (!fs.existsSync(filePath)) fs.outputFileSync(filePath, `[]`, 'utf-8');
 		let file = (await import(filePath, { assert: { type: 'json' }})).default;
-		file.push({ id: file.length + 1, timestamp: Date.now(), reason: reason });
+		file.push({ id: file.length + 1, timestamp: new Date().toISOString(), reason: reason });
 		fs.writeFileSync(filePath, JSON.stringify(file), 'utf-8');
 
 		const desc = `${member.user} - ${member.user.tag}\n**ID**: ${member.id}\n**Reason**: ${reason}\n**Kick ID**: ${file.length}`;
@@ -215,7 +215,7 @@ export const command = {
 			color: embedcolors.log,
 			title: 'Member Kicked',
 			description: desc,
-			timestamp: Date.now()
+			timestamp: new Date().toISOString()
 		});
 		console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Member Kicked')}: ${desc}`);
 	},
@@ -226,7 +226,7 @@ export const command = {
 		const filePath = path.resolve(__dirname, `../../_data/modactions/notes/${args[0]}.json`);
 		if (!fs.existsSync(filePath)) fs.outputFileSync(filePath, `[]`, 'utf-8');
 		let file = (await import(filePath, { assert: { type: 'json' }})).default;
-		file.push({ id: file.length + 1, timestamp: Date.now(), note });
+		file.push({ id: file.length + 1, timestamp: new Date().toISOString(), note });
 		fs.writeFileSync(filePath, JSON.stringify(file), 'utf-8');
 		await interaction.reply({ content: `Successfully wrote a note for ${user.tag} (ID: ${file.length})` });
 
@@ -235,7 +235,7 @@ export const command = {
 			color: embedcolors.log,
 			title: 'Member Note Added',
 			description: desc,
-			timestamp: Date.now()
+			timestamp: new Date().toISOString()
 		});
 		console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Member Note Added')}: ${desc}`);
 	},
@@ -269,7 +269,7 @@ export const command = {
 		const filePath = path.resolve(__dirname, `../../_data/modactions/warns/${member.id}.json`);
 		if (!fs.existsSync(filePath)) fs.outputFileSync(filePath, `[]`, 'utf-8');
 		let file = (await import(filePath, { assert: { type: 'json' }})).default;
-		file.push({ id: file.length + 1, timestamp: Date.now(), reason: reason });
+		file.push({ id: file.length + 1, timestamp: new Date().toISOString(), reason: reason });
 		fs.writeFileSync(filePath, JSON.stringify(file), 'utf-8');
 
 		const desc = `${member.user} - ${member.user.tag}\n**ID**: ${member.id}\n**Reason**: ${reason}\n**Warn ID**: ${file.length}`;
@@ -277,7 +277,7 @@ export const command = {
 			color: embedcolors.log,
 			title: 'Member Warned',
 			description: desc,
-			timestamp: Date.now()
+			timestamp: new Date().toISOString()
 		});
 		console.log(`${chalk.bold(Date().toString())} ${chalk.italic('Member Warned')}: ${desc}`);
 	}

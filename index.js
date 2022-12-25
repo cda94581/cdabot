@@ -5,7 +5,7 @@ import config from './config/config.json' assert { type: 'json' };
 const { token } = config;
 const client = new Client({
 	partials: [ Partials.Channel, Partials.GuildMember, Partials.Message, Partials.Reaction, Partials.User ],
-	intents: [ 'DirectMessages', 'DirectMessageReactions', 'Guilds', 'GuildBans', 'GuildMembers', 'GuildMessages', 'GuildMessageReactions', 'GuildPresences' ]
+	intents: [ 'DirectMessages', 'DirectMessageReactions', 'Guilds', 'GuildBans', 'GuildMembers', 'GuildMessages', 'GuildMessageReactions', 'GuildPresences', 'MessageContent' ]
 });
 
 client.customEvents = new event();
