@@ -23,7 +23,7 @@ client.customEvents.on('messageCreateCheck', async (message = Message.prototype)
 	const filePath = path.resolve(__dirname, `../_data/leveling/${author}.json`);
 
 	if (!fs.existsSync(filePath)) fs.outputFileSync(filePath, `{"id":"${author}","level":0,"xp":0,"messages":0}`, 'utf-8');
-	let text = (await import(filePath, { assert: { type: 'json' }})).default;
+	let text = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 	if (text.level >= levelinfo.max) return;
 	const xpToLevel = 5 * (text.level ** 2) + 50 * text.level + 100;
 	const addXp = Math.floor(Math.random() * 11) + 15;

@@ -8,7 +8,7 @@ import { client } from '../index.js';
 
 const getYoutube = async () => {
 	const filePath = path.resolve(__dirname, '../config/youtube.json');
-	let youtube = (await import(filePath, { assert: { type: 'json' }})).default;
+	let youtube = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 	const channels = Object.keys(youtube.channels);
 	channels.forEach(channel => {
 		https.get(`https://www.youtube.com/feeds/videos.xml?channel_id=${channel}`, res => {

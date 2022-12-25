@@ -33,7 +33,7 @@ client.on('guildMemberAdd', async member => {
 	const desc = `${member.user} - ${member.user.tag}\n**ID**: ${member.id}\n**Account Created**: ${member.user.createdAt}`;
 
 	const filePath = path.resolve(__dirname, '../_data/member_history.json');
-	let memberhistory = fs.existsSync(filePath) ? (await import(filePath, { assert: { type: 'json' }})).default : [];
+	let memberhistory = fs.existsSync(filePath) ? JSON.parse(fs.readFileSync(filePath, 'utf-8')) : [];
 	if (memberhistory.includes(member.id)) {
 		log({
 			title: 'Member Rejoined',

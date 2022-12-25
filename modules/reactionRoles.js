@@ -10,7 +10,7 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
 		if (messageReaction.message.channelId == rr.channel
 			&& messageReaction.message.id == rr.message
 			&& (messageReaction.emoji.id || messageReaction.emoji.name) == rr.emoji) messageReaction.message.guild.members.resolve(user)
-				.roles.add(await messageReaction.message.guild.roles.fetch(role));
+				.roles.add(await messageReaction.message.guild.roles.fetch(rr.role));
 	});
 });
 
@@ -23,6 +23,6 @@ client.on('messageReactionRemove', async (messageReaction, user) => {
 		if (messageReaction.message.channelId == rr.channel
 			&& messageReaction.message.id == rr.message
 			&& (messageReaction.emoji.id || messageReaction.emoji.name) == rr.emoji) messageReaction.message.guild.members.resolve(user)
-				.roles.remove(await messageReaction.message.guild.roles.fetch(role));
+				.roles.remove(await messageReaction.message.guild.roles.fetch(rr.role));
 	});
 });
