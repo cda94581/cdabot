@@ -1,31 +1,31 @@
 {
-  "name": "cdabot",
-  "version": "0.4.6",
-  "description": "*cdabot* is a [*Discord*](https://discord.com) Bot for [my Discord Server](https://discord.gg/da32ASg). It features custom commands, welcome messages, and leveling without databases, with more to come!",
-  "main": "index.js",
-  "scripts": {
-    "start": "node --no-warnings .",
-    "dev": "node --trace-warnings .",
-    "archive": "node ./_archive.js",
-    "bump": "node ./_bump.js",
-    "register": "node ./_initialize/register.js",
-    "deleteServer": "node ./_initialize/delete-server.js",
-    "deleteGlobal": "node ./_initialize/delete-global.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/cda94581/discord_bots/tree/main/cdabot"
-  },
-  "author": "cda94581",
-  "license": "MIT",
-  "dependencies": {
-    "@discordjs/rest": "^1.5.0",
-    "archiver": "^5.3.1",
-    "chalk": "^5.2.0",
-    "discord.js": "^14.7.1",
-    "fs-extra": "^10.1.0",
-    "lodash": "^4.17.21",
-    "xml2js": "^0.4.23"
-  },
-  "type": "module"
+	"name": "cdabot",
+	"version": "0.2022.12.25-1",
+	"description": "*cdabot* is a [*Discord*](https://discord.com) Bot for [my Discord Server](https://discord.gg/da32ASg). It features custom commands, welcome messages, and leveling without databases, with more to come!",
+	"main": "index.js",
+	"scripts": {
+		"start": "node --no-warnings .",
+		"dev": "node --trace-warnings .",
+		"archive": "node ./_archive.js",
+		"bump": "node ./_bump.js",
+		"register": "node ./_initialize/register.js",
+		"deleteServer": "node ./_initialize/delete-server.js",
+		"deleteGlobal": "node ./_initialize/delete-global.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/cda94581/discord_bots/tree/main/cdabot"
+	},
+	"author": "cda94581",
+	"license": "MIT",
+	"dependencies": {
+		"@discordjs/rest": "^1.5.0",
+		"archiver": "^5.3.1",
+		"chalk": "^5.2.0",
+		"discord.js": "^14.7.1",
+		"fs-extra": "^10.1.0",
+		"lodash": "^4.17.21",
+		"xml2js": "^0.4.23"
+	},
+	"type": "module"
 }
