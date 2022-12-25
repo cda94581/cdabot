@@ -17,8 +17,10 @@
 		"max": 20
 	},
 	"logchannel": "LOG EVENTS HERE",
-	"modmessagingchannel": "YOUR MODMESSAGING CHANNEL ID HERE",
+	"modchat": "MOD CHAT CHANNEL ID",
+	"modrole": "MOD ROLE ID",
 	"muterole": "ROLE ID FOR MUTED",
+	"placeholder": "PLACEHOLDER MESSAGE",
 	"presence": {
 		"activities": [
 			{
