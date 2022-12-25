@@ -7,7 +7,7 @@ A quick note- I've set all "stable" commands to have the "global" flag. This may
 
 ## Installing & Running
 1. Download [Node.js](https://nodejs.org/) (v16 or higher) and NPM
-2. Download the [`source code`](https://github.com/cda94581/stiadsbot/tags) from the tags
+2. Download the [`source code`](https://github.com/cda94581/cdabot/tags) from the tags or from the cdabot.zip file
 3. Unzip the file
 4. Modify the [`config.json`](config.json) file to fit your needs
 5. Open the folder in the Command Prompt or Terminal
