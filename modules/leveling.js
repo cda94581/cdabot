@@ -11,6 +11,7 @@ const xpCooldowns = new Set();
 client.customEvents.on('messageCreateCheck', async (message = Message.prototype) => {
 	const author = message.author.id;
 	if (Object.keys(levelinfo.blacklist.channels).includes(message.channelId)
+		|| Object.keys(levelinfo.blacklist.channels).includes(message.channel.parentId)
 		|| Object.keys(levelinfo.blacklist.users).includes(author)
 		|| message.channel.type == ChannelType.DM
 		|| message.author.bot) return;
