@@ -1,5 +1,5 @@
 # cdabot
-Version 0.2022.12.25-6
+Version 0.2022.12.26-1
 
 *cdabot* is a [*Discord*](https://discord.com) Bot for [my Discord Server](https://discord.gg/da32ASg). It features custom commands, welcome messages, and leveling without databases, with more to come!
 
