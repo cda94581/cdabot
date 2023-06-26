@@ -21,8 +21,6 @@ jobs:
         run: |
           npm run bump
           npm i
-      - name: Package into a .zip file
-        run: npm run archive
       - name: Clean Up
         run: rm -rf node_modules
       - name: Push and Tag Commits

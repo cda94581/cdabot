@@ -6,7 +6,6 @@
 	"scripts": {
 		"start": "node --no-warnings .",
 		"dev": "node --trace-warnings .",
-		"archive": "node ./_archive.js",
 		"bump": "node ./_bump.js",
 		"register": "node ./_initialize/register.js",
 		"deleteServer": "node ./_initialize/delete-server.js",
